@@ -48,8 +48,7 @@ public class Main {
                     groupedSums.put(car.getType(), car.costs);
             }
         }
-//        Подсчет общей суммы затрат, выше каждая переменная - расчет на каждую категорию, вот это запринтить(1й пункт ДЗ)
-//        Слагаемые суммы надо тоже попринтить, каждое (вторая часть первого пункта ДЗ)
+
         double overallSum = sumLightCars + sumHeavyCars + sumPassengerCars + sumTechCars;
         System.out.println("Общая сумма расходов на ГСМ: " + Math.round(overallSum));
         System.out.println("Общая сумма расходов на ГСМ по легковым авто: " + Math.round(sumLightCars));
@@ -62,14 +61,14 @@ public class Main {
         groupedSums.put(300, sumPassengerCars);
         groupedSums.put(400, sumTechCars);
 
-        Double maxCosts = (Double)Collections.max(groupedSums.values());
+        Double maxCosts = Collections.max(groupedSums.values());
         groupedSums.forEach((k, v) -> {
             if (v == maxCosts) {
                 System.out.println("Тип авто с наибольшим расходом: " + k);
             }
 
         });
-        Double minCosts = (Double)Collections.min(groupedSums.values());
+        Double minCosts = Collections.min(groupedSums.values());
         groupedSums.forEach((k, v) -> {
             if (v == minCosts) {
                 System.out.println("Тип авто с наименьшим расходом: " + k);
