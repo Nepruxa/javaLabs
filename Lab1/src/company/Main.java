@@ -64,14 +64,14 @@ public class Main {
         Double maxCosts = Collections.max(groupedSums.values());
         groupedSums.forEach((k, v) -> {
             if (v == maxCosts) {
-                System.out.println("Тип авто с наибольшим расходом: " + k);
+                System.out.println("Тип авто с наибольшим расходом ГСМ: " + k);
             }
 
         });
         Double minCosts = Collections.min(groupedSums.values());
         groupedSums.forEach((k, v) -> {
             if (v == minCosts) {
-                System.out.println("Тип авто с наименьшим расходом: " + k);
+                System.out.println("Тип авто с наименьшим расходом ГСМ: " + k);
             }
 
         });
