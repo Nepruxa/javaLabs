@@ -1,12 +1,8 @@
 import java.util.*;
 
 public class Task1 {
-    public static <T> Collection<T> removeDuplicates(Collection<T> startCollection) {
-        Collection<T> result = new HashSet<>(startCollection);
-        return result;
-    }
 
-    public static <T> Collection<T> startCollection() {
+    public static <T> Collection<T> createCollection() {
         List<Integer> startCollection = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             Random random = new Random();
@@ -17,9 +13,13 @@ public class Task1 {
         return (Collection<T>) startCollection;
     }
 
+    public static <T> Collection<T> removeDuplicates(Collection<T> startCollection) {
+        Collection<T> result = new HashSet<>(startCollection);
+        return result;
+    }
+
     public static  void runTask1() {
-        Task1 task1 = new Task1();
-        System.out.println("Result collection: " + task1.removeDuplicates(startCollection()));
+        System.out.println("Result collection: " + removeDuplicates(createCollection()));
     }
 }
 
