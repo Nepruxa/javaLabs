@@ -19,7 +19,6 @@ public class Task1 {
 
     public static  void runTask1() {
         Task1 task1 = new Task1();
-        System.out.println("Task 1");
         System.out.println("Result collection: " + task1.removeDuplicates(startCollection()));
     }
 }
