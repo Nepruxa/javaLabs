@@ -1,16 +1,22 @@
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class Task3 {
 
     public static String getWinner(String[] clearInput) {
-        Map<Integer, String> tree = new TreeMap<>(Collections.reverseOrder());
-        for (String cont : clearInput) {
-            String[] contAndScore = cont.trim().split(" ");
-            tree.putIfAbsent(Integer.parseInt(contAndScore[1]), contAndScore[0]);
+        HashMap<String, Integer> board = new HashMap<>();
+        String result ="";
+        int firstMax = 0;
+        for (String input : clearInput) {
+            String[] players = input.trim().split(" ");
+            int score = Integer.parseInt(players[1]);
+            int next = board.getOrDefault(players[0], 0) + score;
+            if (next > firstMax) {
+                firstMax = next;
+                result = players[0] + " " + firstMax;
+            }
+            board.put(players[0], next);
         }
-        return tree.get(tree.keySet().toArray()[0]);
+        return result;
     }
 
     public static void runTask3(String input) {
