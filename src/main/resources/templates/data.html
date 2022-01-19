@@ -5,10 +5,10 @@
     <title>БД</title>
 </head>
 <body>
-<h1 th:inline="text">Привет [[${#httpServletRequest.remoteUser}]]!</h1>
+<h1 th:inline="text">Hello there [[${#httpServletRequest.remoteUser}]]!</h1>
 <table>
     <tr th:if="${schools.isEmpty()}">
-        <td colspan="2"> Нет школ в БД </td>
+        <td colspan="2"> No schools </td>
     </tr>
     <tr th:each="school : ${schools}">
         <td><span th:text="${school.getSchoolNum()}"> Num </span></td>
@@ -16,7 +16,7 @@
     </tr>
 </table>
 <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Выйти"/>
+    <input type="submit" value="Exit"/>
 </form>
 </body>
 </html>

@@ -4,11 +4,11 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
   <persistence-unit name="default">
-    <class>spring.model.Address</class>
-    <class>spring.model.Child</class>
-    <class>spring.model.District</class>
-    <class>spring.model.Parent</class>
-    <class>spring.model.School</class>
+    <class>spring.models.Address</class>
+    <class>spring.models.Child</class>
+    <class>spring.models.District</class>
+    <class>spring.models.Parent</class>
+    <class>spring.models.School</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:DB;create=true"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>

@@ -6,9 +6,12 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
-import spring.model.Address;
-import spring.model.District;
-import spring.model.School;
+import spring.models.Address;
+import spring.models.District;
+import spring.models.School;
+import spring.repositories.AddRep;
+import spring.repositories.DistRep;
+import spring.repositories.SchlRep;
 
 @SpringBootApplication
 public class Application {
@@ -20,24 +23,24 @@ public class Application {
     }
 
     @Component
-    public class DataLoader implements ApplicationRunner {
+    public static class DataLoader implements ApplicationRunner {
 
         @Autowired
-        private SchoolRepository schoolRepository;
+        private SchlRep schlRep;
         @Autowired
-        private AddressRepository addressRepository;
+        private AddRep addRep;
         @Autowired
-        private DistrictRepository districtRepository;
+        private DistRep distRep;
 
         public void run(ApplicationArguments args) {
             District d = new District();
-            districtRepository.save(d);
-            Address a1 = new Address("Улица 1", d);
-            Address a2 = new Address("Улица 2", d);
-            addressRepository.save(a1);
-            addressRepository.save(a2);
-            schoolRepository.save(new School(42, a1));
-            schoolRepository.save(new School(45, a2));
+            distRep.save(d);
+            Address a1 = new Address("Малышева", d);
+            Address a2 = new Address("Ленина", d);
+            addRep.save(a1);
+            addRep.save(a2);
+            schlRep.save(new School(12, a1));
+            schlRep.save(new School(13, a2));
         }
     }
 
