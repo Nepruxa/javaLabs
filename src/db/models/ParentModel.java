@@ -1,4 +1,4 @@
-package db.model;
+package db.models;
 
 import java.io.Serializable;
 import java.lang.Long;
@@ -13,7 +13,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class Parent implements Serializable {
+public class ParentModel implements Serializable {
 
 	   
 	@Id
@@ -22,7 +22,7 @@ public class Parent implements Serializable {
 	private String name;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-	private Address address;
+	private AddressModel addressModel;
 	@ManyToMany(cascade = {
 		CascadeType.PERSIST,
 	    CascadeType.MERGE
@@ -31,10 +31,10 @@ public class Parent implements Serializable {
 	    joinColumns = @JoinColumn(name = "parent_id"),
 	    inverseJoinColumns = @JoinColumn(name = "child_id")
 	)
-	private List<Child> children = new ArrayList<>();
+	private List<ChildModel> children = new ArrayList<>();
 	public static final long serialVersionUID = 1L;
 
-	public Parent() {
+	public ParentModel() {
 		super();
 	}   
 	public Long getId() {
@@ -51,23 +51,23 @@ public class Parent implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
-	public Address getAddress() {
-		return this.address;
+	public AddressModel getAddress() {
+		return this.addressModel;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddress(AddressModel addressModel) {
+		this.addressModel = addressModel;
 	}   
-	public List<Child> getChildren() {
+	public List<ChildModel> getChildren() {
 		return this.children;
 	}
 
-	public void setChildren(List<Child> children) {
+	public void setChildren(List<ChildModel> children) {
 		this.children = children;
 	}
 
-	public void addChild(Child child) {
-		this.children.add(child);
+	public void addChild(ChildModel childModel) {
+		this.children.add(childModel);
 	}
    
 }

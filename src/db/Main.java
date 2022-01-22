@@ -1,10 +1,10 @@
 
 package db;
 
-import db.model.Address;
-import db.model.Child;
-import db.model.Parent;
-import db.model.School;
+import db.models.AddressModel;
+import db.models.ChildModel;
+import db.models.ParentModel;
+import db.models.SchoolModel;
 import org.apache.commons.lang.NotImplementedException;
 
 import javax.persistence.*;
@@ -18,8 +18,8 @@ public class Main {
 
     public static void main(String[] args) {
         Main m = new Main();
-        m.printOutObjects(Child.class);
-        System.out.println("Введите id ребёнка которому нужно изменить адрес:");
+        m.printOutObjects(ChildModel.class);
+        System.out.println("Enter child id");
         int id = in.nextInt();
         m.editChild(id);
         emfactory.close();
@@ -27,42 +27,42 @@ public class Main {
 
     private void editChild(int id) {
         EntityManager em = emfactory.createEntityManager();
-        Child child = em.find(Child.class, id);
-        printOutObjects(Address.class);
-        System.out.println("Введите id адреса по которому теперь проживает " + child.getName() + ":");
+        ChildModel childModel = em.find(ChildModel.class, id);
+        printOutObjects(AddressModel.class);
+        System.out.println("Enter address id" + childModel.getName() + ":");
         int addressId = in.nextInt();
-        Address address = em.find(Address.class, addressId);
-        List<School> schools = getRecommendedSchools(address);
-        System.out.println("В этом районе есть следующие школы:");
-        for (School s : schools) {
+        AddressModel addressModel = em.find(AddressModel.class, addressId);
+        List<SchoolModel> schools = getRecommendedSchools(addressModel);
+        System.out.println("Schools in this area:");
+        for (SchoolModel s : schools) {
             System.out.println(objString(s));
         }
-        System.out.println("Введите id новой школы где учится " + child.getName() + ":");
+        System.out.println("Enter school id" + childModel.getName() + ":");
         int schoolId = in.nextInt();
-        School school = em.find(School.class, schoolId);
-        changeAddress(child, address, school);
+        SchoolModel schoolModel = em.find(SchoolModel.class, schoolId);
+        changeAddress(childModel, addressModel, schoolModel);
         em.close();
     }
 
-    private String objString(Child c) {
-        return "Child " + c.getId().toString() + ": " + c.getName() + ", школа " + c.getSchool().getNum();
+    private String objString(ChildModel c) {
+        return "Child " + c.getId().toString() + ": " + c.getName() + ", school " + c.getSchool().getNum();
     }
 
-    private String objString(Address a) {
+    private String objString(AddressModel a) {
         return "Address " + a.getId().toString() + ": " + a.getAddress();
     }
 
-    private String objString(School s) {
-        return "School " + s.getId().toString() + ": номер " + Integer.toString(s.getNum());
+    private String objString(SchoolModel s) {
+        return "School " + s.getId().toString() + ": number " + Integer.toString(s.getNum());
     }
 
     private String objString(Object o) {
-        if (o instanceof Child) {
-            return objString((Child) o);
-        } else if (o instanceof Address) {
-            return objString((Address) o);
-        } else if(o instanceof School) {
-            return objString((School)o);
+        if (o instanceof ChildModel) {
+            return objString((ChildModel) o);
+        } else if (o instanceof AddressModel) {
+            return objString((AddressModel) o);
+        } else if(o instanceof SchoolModel) {
+            return objString((SchoolModel)o);
         }
         throw new NotImplementedException("objString not implemented for objects of type " + o.getClass().getSimpleName());
     }
@@ -76,60 +76,60 @@ public class Main {
         em.close();
     }
 
-    private List<School> getRecommendedSchools(Address address) {
+    private List<SchoolModel> getRecommendedSchools(AddressModel addressModel) {
         EntityManager em = emfactory.createEntityManager( );
-        TypedQuery<School> q = em.createQuery("SELECT s FROM School s WHERE s.address.district = :district", School.class);
-        q.setParameter("district", address.getDistrict());
-        List<School> schools = q.getResultList();
+        TypedQuery<SchoolModel> q = em.createQuery("SELECT s FROM School s WHERE s.address.district = :district", SchoolModel.class);
+        q.setParameter("district", addressModel.getDistrict());
+        List<SchoolModel> schools = q.getResultList();
         em.close();
         return schools;
     }
 
-    private Child addChild(String name, int age, List<Parent> parents, School school) {
+    private ChildModel addChild(String name, int age, List<ParentModel> parents, SchoolModel schoolModel) {
         EntityManager em = emfactory.createEntityManager( );
         em.getTransaction( ).begin( );
-        Child c = new Child();
-        for (Parent p: parents) {
+        ChildModel c = new ChildModel();
+        for (ParentModel p: parents) {
             p.addChild(c);
         }
         c.setAge(age);
         c.setName(name);
         c.setParents(parents);
-        c.setSchool(school);
+        c.setSchool(schoolModel);
         em.persist(c);
         em.getTransaction().commit();
         em.close();
         return c;
     }
 
-    private Parent addParent(String name, Address address) {
+    private ParentModel addParent(String name, AddressModel addressModel) {
         EntityManager em = emfactory.createEntityManager( );
         em.getTransaction( ).begin( );
-        Parent p = new Parent();
+        ParentModel p = new ParentModel();
         p.setName(name);
-        p.setAddress(address);
+        p.setAddress(addressModel);
         em.persist(p);
         em.getTransaction().commit();
         em.close();
         return p;
     }
 
-    private Child changeAddress(Child child, Address address, School school) {
+    private ChildModel changeAddress(ChildModel childModel, AddressModel addressModel, SchoolModel schoolModel) {
         EntityManager em = emfactory.createEntityManager( );
         em.getTransaction().begin();
-        child = em.find(Child.class, child.getId());
-        address = em.find(Address.class, address.getId());
-        school = em.find(School.class, school.getId());
-        List<Parent> ps = child.getParents();
-        for (Parent p: ps) {
-            p.setAddress(address);
+        childModel = em.find(ChildModel.class, childModel.getId());
+        addressModel = em.find(AddressModel.class, addressModel.getId());
+        schoolModel = em.find(SchoolModel.class, schoolModel.getId());
+        List<ParentModel> ps = childModel.getParents();
+        for (ParentModel p: ps) {
+            p.setAddress(addressModel);
         }
-        List<Child> cs = ps.get(0).getChildren();
-        for (Child c: cs) {
-            c.setSchool(school);
+        List<ChildModel> cs = ps.get(0).getChildren();
+        for (ChildModel c: cs) {
+            c.setSchool(schoolModel);
         }
         em.getTransaction().commit();
         em.close();
-        return child;
+        return childModel;
     }
 }

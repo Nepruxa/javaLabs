@@ -1,4 +1,4 @@
-package db.model;
+package db.models;
 
 import java.io.Serializable;
 import java.lang.Long;
@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 
-public class Address implements Serializable {
+public class AddressModel implements Serializable {
 
 	   
 	@Id
@@ -20,10 +20,10 @@ public class Address implements Serializable {
 	private String address;
     @ManyToOne
     @JoinColumn(name="district_id", nullable=false)
-    private District district;
+    private DistrictModel districtModel;
 	public static final long serialVersionUID = 1L;
 
-	public Address() {
+	public AddressModel() {
 		super();
 	}   
 	public Long getId() {
@@ -40,11 +40,11 @@ public class Address implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public District getDistrict() {
-		return district;
+	public DistrictModel getDistrict() {
+		return districtModel;
 	}
-	public void setDistrict(District district) {
-		this.district = district;
+	public void setDistrict(DistrictModel districtModel) {
+		this.districtModel = districtModel;
 	}
    
 }

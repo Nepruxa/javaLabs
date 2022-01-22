@@ -1,4 +1,4 @@
-package db.model;
+package db.models;
 
 import java.io.Serializable;
 import java.lang.Long;
@@ -14,7 +14,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Child implements Serializable {
+public class ChildModel implements Serializable {
 
 	   
 	@Id
@@ -29,13 +29,13 @@ public class Child implements Serializable {
 			joinColumns = @JoinColumn(name = "child_id"),
 			inverseJoinColumns = @JoinColumn(name = "parent_id")
 	)
-	private List<Parent> parents = new ArrayList<Parent>();;
+	private List<ParentModel> parents = new ArrayList<ParentModel>();;
 	private int age;
 	@ManyToOne
-	private School school;
+	private SchoolModel schoolModel;
 	public static final long serialVersionUID = 1L;
 
-	public Child() {
+	public ChildModel() {
 		super();
 	}   
 	public Long getId() {
@@ -52,11 +52,11 @@ public class Child implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}   
-	public List<Parent> getParents() {
+	public List<ParentModel> getParents() {
 		return this.parents;
 	}
 
-	public void setParents(List<Parent> parents) {
+	public void setParents(List<ParentModel> parents) {
 		this.parents = parents;
 	}   
 	public int getAge() {
@@ -66,12 +66,12 @@ public class Child implements Serializable {
 	public void setAge(int age) {
 		this.age = age;
 	}   
-	public School getSchool() {
-		return this.school;
+	public SchoolModel getSchool() {
+		return this.schoolModel;
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
+	public void setSchool(SchoolModel schoolModel) {
+		this.schoolModel = schoolModel;
 	}
 
 }

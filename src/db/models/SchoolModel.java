@@ -1,4 +1,4 @@
-package db.model;
+package db.models;
 
 import java.io.Serializable;
 import java.lang.Long;
@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class School implements Serializable {
+public class SchoolModel implements Serializable {
 
 	   
 	@Id
@@ -19,11 +19,11 @@ public class School implements Serializable {
 	private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-	private Address address;
+	private AddressModel addressModel;
 	private int num;
 	public static final long serialVersionUID = 1L;
 
-	public School() {
+	public SchoolModel() {
 		super();
 	}   
 	public Long getId() {
@@ -33,12 +33,12 @@ public class School implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}   
-	public Address getAddress() {
-		return this.address;
+	public AddressModel getAddress() {
+		return this.addressModel;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddress(AddressModel addressModel) {
+		this.addressModel = addressModel;
 	}   
 	public int getNum() {
 		return this.num;
